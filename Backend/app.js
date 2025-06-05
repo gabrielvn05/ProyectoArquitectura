@@ -11,6 +11,7 @@ const { sequelize, User } = require('./models');
 dotenv.config();
 
 const app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -18,11 +19,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../frontend'));
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// Rutas
 app.use('/', authRoutes);
 app.use('/students', studentRoutes);
 
-// Crear usuario admin si no existe
 async function createAdminUser() {
   try {
     const existingUser = await User.findOne({ where: { email: 'admin@admin.com' } });
@@ -41,11 +40,10 @@ async function createAdminUser() {
   }
 }
 
-// Iniciar servidor
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
-    createAdminUser(); // Crear admin al iniciar el servidor
+    createAdminUser();
   });
 });
