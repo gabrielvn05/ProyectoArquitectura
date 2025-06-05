@@ -1,0 +1,26 @@
+<head>
+  <link rel="stylesheet" href="/css/students.css" />
+
+</head>
+<div class="container">
+  <h1>Estudiantes</h1>
+  <form method="POST" action="/students/add">
+    <input type="text" name="name" placeholder="Nombre" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="number" name="age" placeholder="Edad" required />
+    <input type="hidden" name="token" value="<%= token %>" />
+    <button type="submit">Agregar</button>
+  </form>
+
+  <ul>
+    <% students.forEach(function(student) { %>
+      <li>
+        <%= student.name %> - <%= student.email %> - <%= student.age %>
+        <form method="POST" action="/students/delete/<%= student.id %>">
+          <input type="hidden" name="token" value="<%= token %>" />
+          <button type="submit">Eliminar</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</div>
