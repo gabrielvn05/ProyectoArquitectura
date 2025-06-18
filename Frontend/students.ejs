@@ -2,6 +2,7 @@
   <link rel="stylesheet" href="/css/students.css" />
 
 </head>
+<a href="/" class="logout-btn">Cerrar sesión</a>
 <div class="container">
   <h1>Estudiantes</h1>
   <form method="POST" action="/students/add">
@@ -24,3 +25,12 @@
     <% }); %>
   </ul>
 </div>
+<script>
+  if (window.history && window.history.pushState) {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }
+</script>
+

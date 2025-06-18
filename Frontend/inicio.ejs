@@ -7,10 +7,20 @@
   <link rel="stylesheet" href="/css/inicio.css" />
 </head>
 <body>
+  <a href="/" class="logout-btn">Cerrar sesión</a>
   <div class="card">
     <h1>Bienvenido, <%= user.email %></h1>
     <p>Desde aquí puedes gestionar los estudiantes y más.</p>
     <a href="/students?token=<%= token %>" class="btn-primary">Ir a Estudiantes</a>
   </div>
 </body>
+<script>
+  if (window.history && window.history.pushState) {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+    };
+  }
+</script>
+
 </html>
