@@ -22,10 +22,9 @@ router.get('/', verifyToken, async (req, res) => {
   res.render('students', { students, token: req.query.token });
 });
 
-router.post('/add', verifyToken, async (req, res) => {
-  await Student.create(req.body);
-  res.redirect('/students?token=' + req.body.token);
-});
+const isValidToken = /^[a-zA-Z0-9-_]+$/.test(req.body.token);
+if (!isValidToken) return res.status(400).send('Token inválido');
+res.redirect('/students?token=' + req.body.token);
 
 router.post('/delete/:id', verifyToken, async (req, res) => {
   await Student.destroy({ where: { id: req.params.id } });
